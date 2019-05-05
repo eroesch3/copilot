@@ -7,6 +7,7 @@ class ActivitiesController < ApplicationController
     @activities = Activity.all
   end
 
+
   # GET /activities/1
   # GET /activities/1.json
   def show
