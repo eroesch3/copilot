@@ -3,9 +3,9 @@ import { Route, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import decode from 'jwt-decode';
 
-// import ActivitiesView from './components/ActivitiesView';
-// import ActivityPage from './components/ActivityPage';
-// import CreateActivity from './components/CreateActivity'
+import ActivitiesView from './components/ActivitiesView';
+import ActivityPage from './components/ActivityPage';
+import CreateActivity from './components/CreateActivity'
 import Login from './components/Login'
 import Register from './components/Register'
 
