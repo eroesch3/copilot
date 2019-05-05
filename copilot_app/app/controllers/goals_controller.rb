@@ -1,5 +1,7 @@
 class GoalsController < ApplicationController
   before_action :set_goal, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_request, 
+  # before_action :authorize_request, except: :create
 
   # GET /goals
   # GET /goals.json
