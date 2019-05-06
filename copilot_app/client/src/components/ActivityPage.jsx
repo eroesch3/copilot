@@ -21,7 +21,7 @@ class ActivitiesView extends Component {
       <div className="activities-page">
         {activity === undefined ? <h2>Loading . . .</h2> : (
           <div>
-            <img alt={activity.name} src={activity.photo} />
+            {/* <img alt={activity.name} src={activity.photo} /> */}
             {this.state.isEdit ?
               <Route path={'/activities/:id/edit'} render={() => (
                 <EditActivity

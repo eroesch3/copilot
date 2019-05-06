@@ -13,7 +13,7 @@ function ActivitiesView(props) {
             props.history.push(`/activities/${activity.id}`);
             window.scrollTo(0, 0);
           }}>
-          <img alt={activity.name} src={activity.photo} />
+            <p>{activity.category}</p>
           <h3>
             <p>{activity.name}</p>
           </h3>
