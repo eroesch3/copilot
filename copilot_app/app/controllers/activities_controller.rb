@@ -1,30 +1,46 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: %i[show update destroy]
 
+
+
   # GET /activities
   def index
-    @activities = Activity.order(:id)
+    @user = User.find(params[:user_id])
+    @activities = @user.activities
 
     render json: @activities
   end
 
+
   # GET /activities/1
   def show
+    @user = User.find(params[:user_id])
+    @activity = Activity.find(params[:id])
+
     render json: @activity
+    # render plain: "Moons: " + params[:id]
   end
+
+
 
   # POST /activities
   def create
+    @user = User.find(params[:user_id])
     @activity = Activity.new(activity_params)
+    @user.activities << @activity
+
     if @activity.save
-      render json: @activity, status: :created
+      render json: @user, include: :activities, status: :created
     else
       render json: @activity.errors, status: :unprocessable_entity
     end
   end
 
+
   # PATCH/PUT /activities/1
   def update
+    @user = User.find(params[:user_id])
+    @activity = Activity.find(activity_params)
     if @activity.update(activity_params)
       render json: @activity
     else
@@ -34,13 +50,18 @@ class ActivitiesController < ApplicationController
 
   # DELETE /activities/1
   def destroy
-    @activity.destroy
+    @user = User.find(params[:user_id])
+    @activity = Activity.destroy(activity_params)
+    # @activity.destroy
+    # XXXXXXXX  ED 3:20 MONDAY:  NOT SURE IF LINE @activity = Activity.destroy(activity_params) WORKS OR NOT. ONE ALTERNATIVE IS JUST @activity.destroy
   end
   
+
   private
   
   # Use callbacks to share common setup or constraints between actions.
   def set_activity
+    @user = User.find(params[:user_id])
     @activity = Activity.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render json: { message: 'no activity matches that ID' }, status: 404
@@ -51,6 +72,56 @@ class ActivitiesController < ApplicationController
     params.require(:activity).permit(:name, :category)
   end
 end
+
+
+
+
+
+# XXXXXXXXXXXXXXXXXX  STUFF FROM PLANETS
+# class MoonsController < ApplicationController
+#   def index
+#       @planet = Planet.find(params[:planet_id])
+#       @moons = @planet.moons
+#   end
+#   def show
+#       @planet = Planet.find(params[:planet_id])
+#       @moon = Moon.find(params[:id])
+#       # render plain: "Moons: " + params[:id]
+#   end
+# end
+
+# XXXXXXXXXXXXXXXXXX
+
+
+
+
+
+
+
+
+
+
+
+
+
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+# BELOW IS CODE FROM PLANETS
+
+# class MoonsController < ApplicationController
+#   def index
+#       @planet = Planet.find(params[:planet_id])
+#       @moons = @planet.moons
+#   end
+#   def show
+#       @planet = Planet.find(params[:planet_id])
+#       @moon = Moon.find(params[:id])
+#       # render plain: "Moons: " + params[:id]
+#   end
+# end
+
+
+
+
 
 
 
