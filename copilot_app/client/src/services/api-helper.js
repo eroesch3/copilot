@@ -26,7 +26,9 @@ export const registerUser = (registerData) => {
     .then(resp => resp.json())
 }
 
-const createActivity = (data) => {
+
+
+const createActivity = (user_id, data) => {
   const opts = {
     method: 'POST',
     body: JSON.stringify({ activity: data }),
@@ -34,9 +36,28 @@ const createActivity = (data) => {
       'Content-Type': 'application/json'
     }
   }
-  return fetch(`${baseUrl}/activities`, opts)
+  return fetch(`${baseUrl}/users/${user_id}/activities`, opts)
     .then(resp => resp.json())
 }
+
+
+
+
+//  old one below  TUES 2:06PM
+// const createActivity = (data) => {
+  
+//   const opts = {
+//     method: 'POST',
+//     body: JSON.stringify({ activity: data }),
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   }
+//   return fetch(`${baseUrl}/activities`, opts)
+//     .then(resp => resp.json())
+// }
+// xxxxxxxxxxxxxxx old one above
+
 
 const readAllActivities = () => {
   return fetch(`${baseUrl}/activities`)

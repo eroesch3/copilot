@@ -180,6 +180,12 @@ class App extends Component {
           }
           </div>
         </header>
+
+        <Link to="/users/:user_id/activities">View Activities</Link>&nbsp;
+        <Link to="/users/:user_id/activities">Create Activity</Link>&nbsp;
+        {/* <Link to="/flavors">Flavors</Link> */}
+
+
         <Route exact path="/login" render={() => (
           <Login
             handleLogin={this.handleLogin}
@@ -190,8 +196,12 @@ class App extends Component {
             handleRegister={this.handleRegister}
             handleChange={this.authHandleChange}
             formData={this.state.authFormData} />)} />
-        <Route
-          exact path="/"
+
+
+{/* XXXXXXXXXXXXXXXXXXXXXXXXXX  Option 1: Noon Tues  WIP SHOW ACTIVITIES IF NEED TO GO BACK */}
+        
+        {/* <Route
+          exact path="/users/:user_id/activities"
           render={() => (
             <ActivitiesView
               activities={this.state.activities}
@@ -199,17 +209,37 @@ class App extends Component {
               handleFormChange={this.handleFormChange}
               newActivity={this.newActivity} />
           )}
-        />
+        /> */}
+
+{/* XXXXXXXXXXXXXXXXXXXXXXXXXX Option 2:  11:10AM Tues WIP SHOW ACTIVITIES IF NEED TO GO BACK */}
         <Route
-          path="/new/activity"
+          path="/users/:user_id/activities"
+          render={(props) => {
+            const { user_id } = props.match.params;
+            // const { id } = props.match.params;
+            // const id = this.state.activities.find(el => el.id
+            // === parseInt(id)); 
+            return <ActivitiesView
+              user_id={user_id}
+              activities={this.state.activities}
+              handleFormChange={this.handleFormChange}
+              activityForm={this.state.activityForm}
+              newActivity={this.newActivity} />
+          }} />
+{/* XXXXXXXXXXXXXXXXXXXXXXXXXX     END OF SHOW ACTIVITIES */}
+
+        <Route
+          path="/users/:user_id/activities"
           render={() => (
             <CreateActivity
               handleFormChange={this.handleFormChange}
               activityForm={this.state.activityForm}
               newActivity={this.newActivity} />
           )} />
+
+
         <Route
-          path="/activities/:id"
+          path="/users/:user_id/activities/:id"
           render={(props) => {
             const { id } = props.match.params;
             const activity = this.state.activities.find(el => el.id === parseInt(id));
