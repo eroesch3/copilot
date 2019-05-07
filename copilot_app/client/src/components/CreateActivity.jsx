@@ -18,6 +18,18 @@ function CreateActivity(props) {
           name="name"
           value={props.activityForm.name}
           onChange={props.handleFormChange} />
+            <p>Hours Spent (15 mins = 0.25 hrs):</p>
+        <input
+          type="float"
+          name="hours_spent"
+          value={props.activityForm.hours_spent}
+          onChange={props.handleFormChange} />
+            <p>Date:</p>
+        <input
+          type="date"
+          name="date"
+          value={props.activityForm.date}
+          onChange={props.handleFormChange} />
         <button>Submit</button>
       </form>
     </div >

@@ -27,7 +27,10 @@ class App extends Component {
       activities: [],
       activityForm: {
         name: "",
-        category: ""
+        category: "",
+        hours_spent: null,
+        date: null
+
       },
       currentUser: null,
       authFormData: {
@@ -74,7 +77,9 @@ class App extends Component {
       activities: [...prevState.activities, activity],
       activityForm: {
         name: "",
-        photo: ""
+        category: "",
+        hours_spent: null,
+        date: null
       }
     }))
   }
@@ -158,7 +163,9 @@ class App extends Component {
           <h1><Link to='/' onClick={() => this.setState({
             activityForm: {
               name: "",
-              category: ""
+              category: "",
+              hours_spent: null,
+              date: null
             }
           })}>Copilot</Link></h1>
           <div>
