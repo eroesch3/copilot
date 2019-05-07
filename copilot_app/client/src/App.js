@@ -24,6 +24,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user_id: '',
       activities: [],
       activityForm: {
         name: "",
@@ -70,19 +71,44 @@ class App extends Component {
     })
   }
 
-  async newActivity(e) {
-    e.preventDefault();
-    const activity = await createActivity(this.state.activityForm);
-    this.setState(prevState => ({
-      activities: [...prevState.activities, activity],
-      activityForm: {
-        name: "",
-        category: "",
-        hours_spent: null,
-        date: null
+  // async newActivity(e) {
+  //   e.preventDefault();
+  //   const activity = await createActivity(
+  //   this.setState( ({
+  //     activities: [ activity],
+  //     activityForm: {
+  //       name: "",
+  //       category: "",
+  //       hours_spent: null,
+  //       date: null
+  //     }
+  //   }))
+  //   )}
+
+    // XXXXXXXXXXXXXXXXX EXPERIMENTING ABOVE--REVERT TO CODE BELOW IF NEED PREVSTATE
+
+    async newActivity(e) {
+      e.preventDefault();
+      console.log("e: ", e.target.category.value)
+      const activityObject = {
+        category: e.target.category.value,
+        name: e.target.name.value,
+        hours_spent: e.target.category.hours_spent,
+        date: e.target.category.date
       }
-    }))
-  }
+      const activity = await createActivity(this.state.user_id, activityObject)
+      this.setState(prevState => ({
+        activities: [...prevState.activities, activity],
+        activityForm: {
+          name: "",
+          category: "",
+          hours_spent: null,
+          date: null
+        }
+      }))
+      }
+
+
 
   async editActivity() {
     const { activityForm } = this.state
@@ -128,9 +154,10 @@ class App extends Component {
   async handleLogin() {
     const userData = await loginUser(this.state.authFormData);
     this.setState({
-      currentUser: decode(userData.token)
+      currentUser: decode(userData.user.token),
+      user_id: userData.user.id
     })
-    localStorage.setItem("jwt", userData.token)
+    localStorage.setItem("jwt", userData.user.token)
   }
 
   async handleRegister(e) {
@@ -157,6 +184,9 @@ class App extends Component {
   }
 
   render() {
+
+    const user_id = this.state.user_id
+
     return (
       <div className="App">
         <header>
@@ -181,8 +211,8 @@ class App extends Component {
           </div>
         </header>
 
-        <Link to="/users/:user_id/activities">View Activities</Link>&nbsp;
-        <Link to="/users/:user_id/activities">Create Activity</Link>&nbsp;
+        <Link to={`/users/${user_id}/activities`}>View Activities</Link>&nbsp;
+        <Link to={`/users/${user_id}/activities`}>Create Activity</Link>&nbsp;
         {/* <Link to="/flavors">Flavors</Link> */}
 
 
@@ -213,9 +243,9 @@ class App extends Component {
 
 {/* XXXXXXXXXXXXXXXXXXXXXXXXXX Option 2:  11:10AM Tues WIP SHOW ACTIVITIES IF NEED TO GO BACK */}
         <Route
-          path="/users/:user_id/activities"
+          path={`/users/${user_id}/activities`}
           render={(props) => {
-            const { user_id } = props.match.params;
+            // const { user_id } = props.match.params;
             // const { id } = props.match.params;
             // const id = this.state.activities.find(el => el.id
             // === parseInt(id)); 
@@ -229,7 +259,7 @@ class App extends Component {
 {/* XXXXXXXXXXXXXXXXXXXXXXXXXX     END OF SHOW ACTIVITIES */}
 
         <Route
-          path="/users/:user_id/activities"
+          path={`/users/${user_id}/activities`}
           render={() => (
             <CreateActivity
               handleFormChange={this.handleFormChange}
@@ -239,7 +269,7 @@ class App extends Component {
 
 
         <Route
-          path="/users/:user_id/activities/:id"
+          path={`/users/${user_id}/activities/:id`}
           render={(props) => {
             const { id } = props.match.params;
             const activity = this.state.activities.find(el => el.id === parseInt(id));
