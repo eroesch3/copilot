@@ -21,7 +21,7 @@ function EditActivity(props) {
 
         <p>Hours Spent (15 mins = 0.25 hrs):</p>
         <input
-          type="float"
+          type="flsoat"
           name="hours_spent"
           value={props.activityForm.hours_spent}
           onChange={props.handleFormChange} />

@@ -2,7 +2,9 @@ import React from 'react';
 import { withRouter } from 'react-router';
 
 function ActivitiesView(props) {
+  console.log(props)
   return (
+    
     <div className="activity-container">
       {props.activities.map(activity => (
         <div
@@ -25,10 +27,10 @@ function ActivitiesView(props) {
           props.history.push('/new/activity');
           window.scrollTo(0, 0);
         }}>
-        <img
-          alt="no image"
-          src="https://image.flaticon.com/icons/png/512/14/14980.pn"
-          className="plus-sign" />
+        {/* <img */}
+          {/* // alt="no image" */}
+          {/* // src=" # " */}
+          {/* className="act-view-image" /> */}
         <h3>Create a new activity</h3>
       </div>
     </div>

@@ -65,27 +65,12 @@ class App extends Component {
   // }
 
   async getActivities() {
-    const activities = await readAllActivities();
+    const activities = await readAllActivities(this.state.user_id);
     this.setState({
       activities
     })
   }
 
-  // async newActivity(e) {
-  //   e.preventDefault();
-  //   const activity = await createActivity(
-  //   this.setState( ({
-  //     activities: [ activity],
-  //     activityForm: {
-  //       name: "",
-  //       category: "",
-  //       hours_spent: null,
-  //       date: null
-  //     }
-  //   }))
-  //   )}
-
-    // XXXXXXXXXXXXXXXXX EXPERIMENTING ABOVE--REVERT TO CODE BELOW IF NEED PREVSTATE
 
     async newActivity(e) {
       e.preventDefault();
@@ -158,6 +143,7 @@ class App extends Component {
       user_id: userData.user.id
     })
     localStorage.setItem("jwt", userData.user.token)
+    this.getActivities();
   }
 
   async handleRegister(e) {
@@ -171,6 +157,7 @@ class App extends Component {
     this.setState({
       currentUser: null
     })
+    window.location.pathname = '/';
   }
 
   authHandleChange(e) {
@@ -258,14 +245,16 @@ class App extends Component {
           }} />
 {/* XXXXXXXXXXXXXXXXXXXXXXXXXX     END OF SHOW ACTIVITIES */}
 
-        <Route
+{/* XXX  ED RETURN HERE AFTER DEBUG ACTIVITIES VIEW */}
+
+        {/* <Route
           path={`/users/${user_id}/activities`}
           render={() => (
             <CreateActivity
               handleFormChange={this.handleFormChange}
               activityForm={this.state.activityForm}
               newActivity={this.newActivity} />
-          )} />
+          )} /> */}
 
 
         <Route

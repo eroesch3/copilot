@@ -27,6 +27,12 @@ export const registerUser = (registerData) => {
 }
 
 
+const readAllActivities = (user_id) => {
+  return fetch(`${baseUrl}/users/${user_id}/activities`)
+  // return fetch(`${baseUrl}/activities`)
+    .then(resp => resp.json())
+}
+
 
 const createActivity = (user_id, data) => {
   const opts = {
@@ -59,10 +65,7 @@ const createActivity = (user_id, data) => {
 // xxxxxxxxxxxxxxx old one above
 
 
-const readAllActivities = () => {
-  return fetch(`${baseUrl}/activities`)
-    .then(resp => resp.json())
-}
+
 
 const updateActivity = (id, data) => {
   const opts = {
