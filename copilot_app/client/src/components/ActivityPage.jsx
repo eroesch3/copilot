@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import EditActivity from './EditActivity'
+import EditActivity from './EditActivity.jsx'
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
-class ActivitiesView extends Component {
+class ActivityPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,12 +17,19 @@ class ActivitiesView extends Component {
 
   render() {
     const { activity } = this.props;
+
+    
+
     return (
       <div className="activities-page">
+
+      <h1>THIS IS ACTIVITY PAGE</h1>
+
         {activity === undefined ? <h2>Loading . . .</h2> : (
           <div>
             {/* <img alt={activity.name} src={activity.photo} /> */}
-            {this.state.isEdit ?
+            <EditActivity/>
+            { this.state.isEdit ?
               <Route path={'/activities/:id/edit'} render={() => (
                 <EditActivity
                   handleFormChange={this.props.handleFormChange}
@@ -41,7 +48,7 @@ class ActivitiesView extends Component {
                   this.setState({
                     isEdit: true
                   })
-                  this.props.history.push(`/activities/${activity.id}/edit`)
+                  this.props.history.push(`${activity.id}/edit`)
                 }}>Edit</button>
                 <button onClick={() => {
                   this.props.deleteActivity(activity.id);
@@ -54,4 +61,4 @@ class ActivitiesView extends Component {
   }
 }
 
-export default withRouter(ActivitiesView);
+export default withRouter(ActivityPage);

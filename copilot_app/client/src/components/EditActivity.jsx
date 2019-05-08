@@ -6,11 +6,11 @@ function EditActivity(props) {
     <div>
       <h3>Edit previous activity</h3>
       <form onSubmit={props.handleSubmit}>
-        <p>Category:</p>
+        <p>Category FROM ACTIVITY:</p>
         <input
           type="text"
           name="category"
-          value={props.activityForm.photo}
+          value={props.activityForm.category}
           onChange={props.handleFormChange} />
         <p>Activity name:</p>
         <input
@@ -21,7 +21,7 @@ function EditActivity(props) {
 
         <p>Hours Spent (15 mins = 0.25 hrs):</p>
         <input
-          type="flsoat"
+          type="float"
           name="hours_spent"
           value={props.activityForm.hours_spent}
           onChange={props.handleFormChange} />

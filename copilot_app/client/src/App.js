@@ -94,7 +94,6 @@ class App extends Component {
       }
 
 
-
   async editActivity() {
     const { activityForm } = this.state
     await updateActivity(activityForm.id, activityForm);
@@ -123,7 +122,7 @@ class App extends Component {
   }
 
   async mountEditForm(id) {
-    const activities = await readAllActivities();
+    const activities = await readAllActivities(this.state.user_id);
     const activity = activities.find(el => el.id === parseInt(id));
     this.setState({
       activityForm: activity
@@ -171,6 +170,17 @@ class App extends Component {
   }
 
   render() {
+    
+    const onActivitiesPage = window.location.pathname.slice(-10) === 'activities' ? true : false
+    
+    // if (window.location.pathname.slice(-10) === 'activities') {
+    //   const onActivitiesPage = true
+    // }
+    //   else {
+    //     const onActivitiesPage = false
+    //   }
+    
+      console.log(onActivitiesPage)
 
     const user_id = this.state.user_id
 
@@ -198,7 +208,8 @@ class App extends Component {
           </div>
         </header>
 
-        <Link to={`/users/${user_id}/activities`}>View Activities</Link>&nbsp;
+        <Link to={`/users/${user_id}/activities`}>View Activities</Link>
+        <br/>
         <Link to={`/users/${user_id}/activities`}>Create Activity</Link>&nbsp;
         {/* <Link to="/flavors">Flavors</Link> */}
 
@@ -236,25 +247,25 @@ class App extends Component {
             // const { id } = props.match.params;
             // const id = this.state.activities.find(el => el.id
             // === parseInt(id)); 
-            return <ActivitiesView
+            return  onActivitiesPage && <ActivitiesView
               user_id={user_id}
               activities={this.state.activities}
               handleFormChange={this.handleFormChange}
               activityForm={this.state.activityForm}
-              newActivity={this.newActivity} />
+              newActivity={this.newActivity} /> 
           }} />
 {/* XXXXXXXXXXXXXXXXXXXXXXXXXX     END OF SHOW ACTIVITIES */}
 
 {/* XXX  ED RETURN HERE AFTER DEBUG ACTIVITIES VIEW */}
 
-        {/* <Route
+        <Route
           path={`/users/${user_id}/activities`}
           render={() => (
             <CreateActivity
               handleFormChange={this.handleFormChange}
               activityForm={this.state.activityForm}
               newActivity={this.newActivity} />
-          )} /> */}
+          )} />
 
 
         <Route

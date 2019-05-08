@@ -3,16 +3,21 @@ import { withRouter } from 'react-router';
 
 function ActivitiesView(props) {
   console.log(props)
+  console.log(props.user_id)
   return (
-    
+
     <div className="activity-container">
+
+<h1>THIS IS ACTIVITIES VIEW</h1>
+
       {props.activities.map(activity => (
         <div
           key={activity.id}
           className="activity-card"
           onClick={(e) => {
-            debugger;
-            props.history.push(`/activities/${activity.id}`);
+            // debugger;
+            props.history.push(`activities/${activity.id}`);
+            // props.history.push(`users/${props.user_id}/activities/${activity.id}`);
             window.scrollTo(0, 0);
           }}>
             <p>{activity.category}</p>
