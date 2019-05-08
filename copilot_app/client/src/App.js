@@ -172,16 +172,7 @@ class App extends Component {
   render() {
     
     const onActivitiesPage = window.location.pathname.slice(-10) === 'activities' ? true : false
-    
-    // if (window.location.pathname.slice(-10) === 'activities') {
-    //   const onActivitiesPage = true
-    // }
-    //   else {
-    //     const onActivitiesPage = false
-    //   }
-    
-      console.log(onActivitiesPage)
-
+    console.log(onActivitiesPage)
     const user_id = this.state.user_id
 
     return (
@@ -256,7 +247,6 @@ class App extends Component {
           }} />
 {/* XXXXXXXXXXXXXXXXXXXXXXXXXX     END OF SHOW ACTIVITIES */}
 
-{/* XXX  ED RETURN HERE AFTER DEBUG ACTIVITIES VIEW */}
 
         <Route
           path={`/users/${user_id}/activities`}
@@ -270,9 +260,13 @@ class App extends Component {
 
         <Route
           path={`/users/${user_id}/activities/:id`}
+          
           render={(props) => {
             const { id } = props.match.params;
             const activity = this.state.activities.find(el => el.id === parseInt(id));
+
+            {console.log('activityForm in App.js:', this.state.activityForm)}
+            
             return <ActivityPage
               id={id}
               activity={activity}
@@ -281,6 +275,9 @@ class App extends Component {
               editActivity={this.editActivity}
               activityForm={this.state.activityForm}
               deleteActivity={this.deletActivity} />
+
+              
+
           }}
         />
       </div>

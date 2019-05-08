@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import EditActivity from './EditActivity.jsx'
+import EditActivity from './EditActivity'
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
@@ -18,7 +18,12 @@ class ActivityPage extends Component {
   render() {
     const { activity } = this.props;
 
-    
+    console.log('activityForm in ActivityPage.js:', this.props.activityForm)
+
+    // console.log('activityForm in ActivityPage.js:', this.props.activityForm)
+
+
+    // const passing = this.props
 
     return (
       <div className="activities-page">
@@ -28,15 +33,18 @@ class ActivityPage extends Component {
         {activity === undefined ? <h2>Loading . . .</h2> : (
           <div>
             {/* <img alt={activity.name} src={activity.photo} /> */}
-            <EditActivity/>
+            {/* <EditActivity/> */}
+            
             { this.state.isEdit ?
-              <Route path={'/activities/:id/edit'} render={() => (
+              <Route path={'/users/:user_id/activities/:id/edit'}
+              render={(props) => (
                 <EditActivity
+                {...props}
                   handleFormChange={this.props.handleFormChange}
                   handleSubmit={(e) => {
                     e.preventDefault();
                     this.props.editActivity();
-                    this.setState({ isEdit: false })
+                    // setState({ isEdit: false })
                     this.props.history.push(`/activities/${this.props.activityForm.id}`)
                   }}
                   activityForm={this.props.activityForm} />
