@@ -39,9 +39,11 @@ class ActivitiesController < ApplicationController
 
   # PATCH/PUT /activities/1
   def update
-    @user = User.find(params[:user_id])
-    @activity = Activity.find(activity_params)
-    if @activity.update(activity_params)
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      @activity.update(activity_params)
+      render json: @user, include: :activities
+    elsif @activity.update(activity_params)
       render json: @activity
     else
       render json: @activity.errors, status: :unprocessable_entity
@@ -51,8 +53,8 @@ class ActivitiesController < ApplicationController
   # DELETE /activities/1
   def destroy
     @user = User.find(params[:user_id])
-    @activity = Activity.destroy(activity_params)
-    # @activity.destroy
+    # @activity = Activity.destroy(activity_params)
+    @activity.destroy
     # XXXXXXXX  ED 3:20 MONDAY:  NOT SURE IF LINE @activity = Activity.destroy(activity_params) WORKS OR NOT. ONE ALTERNATIVE IS JUST @activity.destroy
   end
   
@@ -61,7 +63,7 @@ class ActivitiesController < ApplicationController
   
   # Use callbacks to share common setup or constraints between actions.
   def set_activity
-    @user = User.find(params[:user_id])
+    # @user = User.find(params[:user_id])
     @activity = Activity.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render json: { message: 'no activity matches that ID' }, status: 404
@@ -69,7 +71,7 @@ class ActivitiesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def activity_params
-    params.require(:activity).permit(:name, :category)
+    params.require(:activity).permit(:name, :category, :hours_spent, :date)
   end
 end
 

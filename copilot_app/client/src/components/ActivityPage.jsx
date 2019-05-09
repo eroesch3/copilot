@@ -43,7 +43,7 @@ class ActivityPage extends Component {
                   handleFormChange={this.props.handleFormChange}
                   handleSubmit={(e) => {
                     e.preventDefault();
-                    this.props.editActivity();
+                    this.props.editActivity(e);
                     // setState({ isEdit: false })
                     this.props.history.push(`/activities/${this.props.activityForm.id}`)
                   }}

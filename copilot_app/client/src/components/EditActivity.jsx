@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 // console.log('activityForm in EditActivity:', this.props.activityForm)
 
-function EditActivity(props) {
+function EditActivity(props, e) {
   return (
     <div>
       <h3>Edit previous activity {console.log(props.activityForm)}</h3>
@@ -33,10 +33,6 @@ function EditActivity(props) {
           name="date"
           // value={props.activityForm.date}
           onChange={props.handleFormChange} />
-
-
-
-
 
         <button>Submit</button>
       </form>

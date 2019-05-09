@@ -47,27 +47,13 @@ const createActivity = (user_id, data) => {
 }
 
 
+// ,( window.location.pathname.indexOf("/edit") - ( 11 + window.location.pathname.indexOf("activities/")))
 
-
-//  old one below  TUES 2:06PM
-// const createActivity = (data) => {
+const updateActivity = (user_id, data) => {
+  const activityId = window.location.pathname.slice((11 + window.location.pathname.indexOf("activities/")), ( window.location.pathname.indexOf("/edit")))
   
-//   const opts = {
-//     method: 'POST',
-//     body: JSON.stringify({ activity: data }),
-//     headers: {
-//       'Content-Type': 'application/json'
-//     }
-//   }
-//   return fetch(`${baseUrl}/activities`, opts)
-//     .then(resp => resp.json())
-// }
-// xxxxxxxxxxxxxxx old one above
-
-
-
-
-const updateActivity = (id, data) => {
+  console.log('activity ID:', activityId)
+  console.log(data)
   const opts = {
     method: 'PUT',
     body: JSON.stringify({ activity: data }),
@@ -75,15 +61,20 @@ const updateActivity = (id, data) => {
       'Content-Type': 'application/json'
     }
   }
-  return fetch(`${baseUrl}/activities/${id}`, opts)
+  return fetch(`${baseUrl}/users/${user_id}/activities/${activityId}`, opts)
     .then(resp => resp.json())
 }
 
-const destroyActivity = (id) => {
+
+
+const destroyActivity = (user_id, activityId) => {
+  // const activityId = window.location.pathname.slice((11 + window.location.pathname.indexOf("activities/")), ( window.location.pathname.indexOf("/edit")))
+  console.log('activity id:', activityId)
+  console.log('activity id:', user_id)
   const opts = {
     method: 'DELETE'
   }
-  return fetch(`${baseUrl}/activities/${id}`, opts)
+  return fetch(`${baseUrl}/users/${user_id}/activities/${activityId}`, opts)
 }
 
 export {

@@ -81,6 +81,7 @@ class App extends Component {
         hours_spent: e.target.category.hours_spent,
         date: e.target.category.date
       }
+      console.log(this.state.user_id)
       const activity = await createActivity(this.state.user_id, activityObject)
       this.setState(prevState => ({
         activities: [...prevState.activities, activity],
@@ -94,18 +95,58 @@ class App extends Component {
       }
 
 
-  async editActivity() {
-    const { activityForm } = this.state
-    await updateActivity(activityForm.id, activityForm);
-    this.setState(prevState => (
-      {
-        activities: prevState.activities.map(activity => activity.id === activityForm.id ? activityForm : activity),
-      }
-    ))
-  }
+
+      // async editActivity() {
+      //   const { activityForm } = this.state
+      //   await updateActivity(this.state.user_id, activityObject);
+      //   this.setState(prevState => (
+      //     {
+      //       activities: prevState.activities.map(activity => activity.id === activityForm.id ? activityForm : activity),
+      //     }
+      //   ))
+      // }
+
+
+      async editActivity(e) {
+        e.preventDefault();
+        console.log("e: ", e.target.category.value)
+        const activityObject = {
+          category: e.target.category.value,
+          name: e.target.name.value,
+          hours_spent: e.target.category.hours_spent,
+          date: e.target.category.date
+        }
+        console.log(this.state.user_id)
+        const activity = await updateActivity(this.state.user_id, activityObject)
+        this.setState(prevState => ({
+          activities: [...prevState.activities, activity],
+          activityForm: {
+            name: "",
+            category: "",
+            hours_spent: null,
+            date: null
+          }
+        }))
+        // this.setState(prevState => ({
+        //   activities: prevState.activities.map(activity => activity.id === activityForm.id ? activityForm : activity)
+        
+        // this.setState(prevState => ({
+        //   activities: prevState.activities.map(activity => activity.id === activityForm.id ? activityForm : activity)
+        //   // activities: [...prevState.activities, activity],
+        //   activityForm: {
+        //     name: "",
+        //     category: "",
+        //     hours_spent: null,
+        //     date: null
+        //   }
+          
+        // }))
+        }
+  
 
   async deleteActivity(id) {
-    await destroyActivity(id);
+    // await destroyActivity(id);
+    await destroyActivity(this.state.user_id, id);
     this.setState(prevState => ({
       activities: prevState.activities.filter(activity => activity.id !== id)
     }))
@@ -274,7 +315,7 @@ class App extends Component {
               mountEditForm={this.mountEditForm}
               editActivity={this.editActivity}
               activityForm={this.state.activityForm}
-              deleteActivity={this.deletActivity} />
+              deleteActivity={this.deleteActivity} />
 
               
 
